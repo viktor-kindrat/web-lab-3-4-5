@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/4/4d/Apis_mellifera_Western_honey_bee.jpg",
+    "name": "Бджола",
+    "description": "Збирає нектар. Виготовляє мед",
+    "weightInGram": 0.1,
+    "speedInMetersPerHour": 24
+  },
+  {
+    "id": 2,
+    "image": "https://cdn.drukarnia.com.ua/64461f8338cd2dd0b1ccaeaa/images/articles/649981e6280f442102e88cc8/BCMZ179686.13146871838.jpeg",
+    "name": "Мураха",
+    "description": "Трудящі комахи, що утворюють колонії.",
+    "weightInGram": 0.005,
+    "speedInMetersPerHour": 12
+  },
+  {
+    "id": 3,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/2/26/Criquet.1%28L%29.jpg",
+    "name": "Коник",
+    "description": "Стрибаюча комаха, що харчується травою.",
+    "weightInGram": 2.5,
+    "speedInMetersPerHour": 30
+  },
+  {
+    "id": 4,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/3/3f/Scarabaeus_sacer_Linn%C3%A9%2C_1758_%2828486691625%29.png",
+    "name": "Скарабей",
+    "description": "Жук, що котить гній у кулю.",
+    "weightInGram": 1,
+    "speedInMetersPerHour": 8
+  },
+  {
+    "id": 5,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/0/06/Ladybird.jpg",
+    "name": "Сонечко",
+    "description": "Відомий своїм червоним панцирем з чорними плямами.",
+    "weightInGram": 0.021,
+    "speedInMetersPerHour": 9
+  },
+  {
+    "id": 6,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Cicadetta_montana_Croatia.jpg/1200px-Cicadetta_montana_Croatia.jpg",
+    "name": "Цикада",
+    "description": "Знаменита своїм гучним співом.",
+    "weightInGram": 0.6,
+    "speedInMetersPerHour": 18
+  },
+  {
+    "id": 7,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/1/1c/Peygamber_b%C3%B6ce%C4%9Fi_kesik.JPG",
+    "name": "Богомол",
+    "description": "Комаха-хижак із великими передніми кінцівками.",
+    "weightInGram": 6,
+    "speedInMetersPerHour": 24
+  },
+  {
+    "id": 8,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/4/46/Anax_imperator_female.jpg",
+    "name": "Бабка",
+    "description": "Швидка хижачка з довгими крилами.",
+    "weightInGram": 0.5,
+    "speedInMetersPerHour": 54
+  },
+  {
+    "id": 9,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/a/a3/Reitter-1908_table79_Hydrophilus_aterrimus_1.jpg",
+    "name": "Водний жук",
+    "description": "Жук, що живе у водоймах.",
+    "weightInGram": 0.02,
+    "speedInMetersPerHour": 5
+  },
+  {
+    "id": 10,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/4/4f/The_mantis_which_eats_a_Bee20080829.jpg",
+    "name": "Китайський богомол",
+    "description": "Великий вид богомола з Азії.",
+    "weightInGram": 8,
+    "speedInMetersPerHour": 22
+  }
+]
