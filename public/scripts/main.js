@@ -1,5 +1,6 @@
 const sortBySpeedCheckbox = document.getElementById("sort-by-speed-btn")
 const insectContainer = document.getElementById("insect-data-container");
+const searchInsectInput = document.getElementById("search-insect-input")
 
 let insects = []
 let current = []
@@ -42,12 +43,23 @@ let drawCards = (data) => {
 let sortBySpeed = (insects) => insects.sort((a, b) => b.speedInMetersPerHour - a.speedInMetersPerHour)
 
 sortBySpeedCheckbox.addEventListener("input", () => {
+    searchInsectInput.value = "";
+
     if (sortBySpeedCheckbox.checked) {
         current = sortBySpeed(current)
     } else {
         current = JSON.parse(JSON.stringify(insects))
     }
     drawCards(current)
+})
+
+let searchResult = (data, query) => data.filter(item => new RegExp(query, "gi").test(item.name))
+
+searchInsectInput.addEventListener("input", (e) => {
+    let data = JSON.parse(JSON.stringify(current))
+    data = searchResult(data, e.target.value.trim());
+
+    drawCards(data);
 })
 
 document.addEventListener("DOMContentLoaded", async () => {
