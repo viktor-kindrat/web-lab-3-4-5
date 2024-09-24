@@ -1,0 +1,28 @@
+{
+  "name": "insects",
+  "version": "1.0.0",
+  "description": "insects project",
+  "main": "app.mjs",
+  "scripts": {
+    "start": "node --env-file=.env app.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/viktor-kindrat/web-lab-3-4-5.git"
+  },
+  "keywords": [
+    "node.js"
+  ],
+  "author": "Viktor Kindrat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/viktor-kindrat/web-lab-3-4-5/issues"
+  },
+  "homepage": "https://github.com/viktor-kindrat/web-lab-3-4-5#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "mongoose": "^8.6.3",
+    "open": "^10.1.0"
+  }
+}
