@@ -84,7 +84,7 @@ let drawCards = (data) => {
 
 let sortBySpeed = (insects) => insects.sort((a, b) => b.speedInMetersPerHour - a.speedInMetersPerHour)
 let searchResult = (data, query) => data.filter(item => new RegExp(query, "gi").test(item.name))
-let calculateSummaryWeight = (data) => data.reduce((acc, val) => acc + val.weightInGram, 0)
+let calculateSummaryWeight = (data) => data.reduce((acc, val) => acc + val.weightInGram, 0).toFixed(6)
 
 
 sortBySpeedCheckbox.addEventListener("input", () => {
