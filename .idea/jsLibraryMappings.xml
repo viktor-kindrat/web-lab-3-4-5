@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
-    <file url="PROJECT" libraries="{665c67e185, bootstrap}" />
+    <file url="PROJECT" libraries="{665c67e185, @popperjs/core, bootstrap}" />
   </component>
 </project>

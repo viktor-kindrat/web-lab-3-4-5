@@ -2,9 +2,39 @@ const sortBySpeedCheckbox = document.getElementById("sort-by-speed-btn")
 const insectContainer = document.getElementById("insect-data-container");
 const searchInsectInput = document.getElementById("search-insect-input")
 const calculateSummaryWeightBtn = document.getElementById("calculate-summary-weight-btn")
+const deletionModal = new bootstrap.Modal('#deletion-modal', {
+    backdrop: true, keyboard: false
+})
+const deletionActionButton = document.getElementById("delete-action-button");
+const deletionDiscardButton = document.getElementById("delete-discard-button");
+
+deletionModal.hide()
 
 let insects = []
 let current = []
+let insectInModal = null;
+
+let showAlert = (message, type = 'warning') => {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `alert alert-${type} alert-dismissible fade show fixed-bottom w-75`;
+    alertDiv.style.bottom = '0';
+    alertDiv.style.left = '50%';
+    alertDiv.style.transform = "translateX(-50%)"
+    alertDiv.style.zIndex = '1050';
+
+    alertDiv.innerHTML = `
+        <div class="container">
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    `;
+
+    document.body.appendChild(alertDiv);
+
+    setTimeout(() => {
+        alertDiv.remove();
+    }, 5000);
+}
 
 
 let fetchData = async () => {
@@ -13,6 +43,7 @@ let fetchData = async () => {
     insects = data;
     current = JSON.parse(JSON.stringify(data));
 }
+
 
 let drawCards = (data) => {
     insectContainer.innerHTML = "";
@@ -43,10 +74,18 @@ let drawCards = (data) => {
             link.click()
         })
         let deleteButton = document.getElementById(`delete-insect-${insect._id}`);
+        deleteButton.addEventListener("click", (e) => {
+            deletionModal.toggle();
+            insectInModal = insect._id;
+        })
     }
 }
 
+
 let sortBySpeed = (insects) => insects.sort((a, b) => b.speedInMetersPerHour - a.speedInMetersPerHour)
+let searchResult = (data, query) => data.filter(item => new RegExp(query, "gi").test(item.name))
+let calculateSummaryWeight = (data) => data.reduce((acc, val) => acc + val.weightInGram, 0)
+
 
 sortBySpeedCheckbox.addEventListener("input", () => {
     searchInsectInput.value = "";
@@ -59,7 +98,6 @@ sortBySpeedCheckbox.addEventListener("input", () => {
     drawCards(current)
 })
 
-let searchResult = (data, query) => data.filter(item => new RegExp(query, "gi").test(item.name))
 
 searchInsectInput.addEventListener("input", (e) => {
     let data = JSON.parse(JSON.stringify(insects))
@@ -69,13 +107,41 @@ searchInsectInput.addEventListener("input", (e) => {
     drawCards(current);
 })
 
-let calculateSummaryWeight = (data) => data.reduce((acc, val) => acc + val.weightInGram, 0)
 
 calculateSummaryWeightBtn.addEventListener("click", (e) => {
     document.getElementById("insectsWeight").innerHTML = calculateSummaryWeight(current)
 })
 
+
+deletionDiscardButton.addEventListener("click", () => insectInModal = null)
+deletionActionButton.addEventListener("click", () => {
+    fetch(`/api/insect/${insectInModal}`, {method: "DELETE"})
+        .then(res => res.json())
+        .then(data => {
+            deletionModal.hide();
+
+            setTimeout(() => {
+                if (data.status === 200) {
+                    showAlert("Комаху успішно видалено", "success");
+
+                    (async function() {
+                        await fetchData()
+                        drawCards(current)
+                    })()
+                } else {
+                    showAlert("Помилка при видаленні комахи. Спробуйте ще раз!", "warning")
+                }
+            }, 300)
+        })
+        .catch(e => {
+            console.error(e)
+            showAlert("Помилка при видаленні комахи. Спробуйте ще раз!", "error")
+        })
+})
+
+
 document.addEventListener("DOMContentLoaded", async () => {
     await fetchData()
     drawCards(current)
 })
+
