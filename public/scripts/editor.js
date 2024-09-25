@@ -1,4 +1,7 @@
 let form = document.forms.createForm;
+let submitButton = document.getElementById("submit-button");
+
+submitButton.innerHTML = /update\//gi.test(location.pathname) ? 'Оновити' : 'Створити'
 
 let showAlert = (message, type = 'warning') => {
     const alertDiv = document.createElement('div');
@@ -32,10 +35,31 @@ let create = (data) => {
     })
         .then(res => res.json())
         .then(data => {
-            console.log(data)
             if (data.status === 200) {
                 showAlert("Комаху створено успішно", "success")
                 form.reset()
+            } else {
+                showAlert(`Виникла помилка при створенні комахи: ${data.message}`, "warning")
+            }
+        })
+        .catch(e => {
+            console.error(e)
+            showAlert(`Виникла помилка при створенні комахи: ${String(e)}`, "error")
+        })
+}
+
+let update = (data, id) => {
+    fetch(`/api/insect/${id}`, {
+        method: "PUT",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+        .then(res => res.json())
+        .then(data => {
+            if (data.status === 200) {
+                showAlert("Комаху оновлено успішно!", "success")
             } else {
                 showAlert(`Виникла помилка при створенні комахи: ${data.message}`, "warning")
             }
@@ -74,6 +98,19 @@ let validateForm = ({imageLink, name, description, weightInGram, speedInMetersPe
     return errors;
 }
 
+let setInputDisabledState = (form, state = true) => {
+    let inputs = form.getElementsByTagName("input");
+    for (let el of inputs) {
+        el.disabled = state
+    }
+}
+
+let setFormData = (data, form) => {
+    for (let [key, value] of Object.entries(data)) {
+        form.querySelector(`input[name="${key}"]`).value = value
+    }
+}
+
 form.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -86,8 +123,38 @@ form.addEventListener("submit", (e) => {
     if (errors.length > 0) {
         errors.forEach(error => showAlert(error, 'warning'));
     } else {
-        create(Object.fromEntries(formData.entries()));
-
-        showAlert('Form submitted successfully!', 'success');
+        if (/update\//gi.test(location.pathname)) {
+            update(Object.fromEntries(formData.entries()), location.pathname.split("/").at(-1))
+        } else {
+            create(Object.fromEntries(formData.entries()));
+        }
     }
 });
+
+
+if (/update\//gi.test(location.pathname)) {
+    let id = location.pathname.split("/").at(-1);
+
+    setInputDisabledState(form, true)
+
+    fetch(`/api/insect/${id}`)
+        .then(res => res.json())
+        .then(data => {
+            if (data.status === 200) {
+                setInputDisabledState(form, false)
+                setFormData({
+                    name: data.name,
+                    description: data.description,
+                    imageLink: data.imageLink,
+                    weightInGram: data.weightInGram,
+                    speedInMetersPerHour: data.speedInMetersPerHour
+                }, form)
+            } else {
+                showAlert(`Виникла помилка при отриманні даних: ${data.message}`, "warning")
+            }
+        })
+        .catch(e => {
+            console.error(e)
+            showAlert(`Виникла помилка при отриманні даних: ${String(e)}`, "error")
+        })
+}

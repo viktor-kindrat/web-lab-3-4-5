@@ -20,7 +20,10 @@ app.get("/", (req, res) => {
     return res.sendFile(path.resolve(__dirname, "public", "index.html"))
 })
 app.get("/create", (req, res) => {
-    return res.sendFile(path.resolve(__dirname, "public", "pages", "create.html"))
+    return res.sendFile(path.resolve(__dirname, "public", "pages", "form.html"))
+})
+app.get("/update/:id", (req, res) => {
+    return res.sendFile(path.resolve(__dirname, "public", "pages", "form.html"))
 })
 
 

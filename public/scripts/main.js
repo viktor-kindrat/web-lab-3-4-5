@@ -7,7 +7,7 @@ let insects = []
 let current = []
 
 
-let fetchData = async (params) => {
+let fetchData = async () => {
     let insectResponse = await fetch("/api/insect");
     let data = await insectResponse.json()
     insects = data;
@@ -37,6 +37,11 @@ let drawCards = (data) => {
         `)
 
         let editButton = document.getElementById(`edit-insect-${insect._id}`);
+        editButton.addEventListener("click", (e) => {
+            let link = document.createElement("a");
+            link.href = `/update/${insect._id}`
+            link.click()
+        })
         let deleteButton = document.getElementById(`delete-insect-${insect._id}`);
     }
 }
@@ -66,8 +71,8 @@ searchInsectInput.addEventListener("input", (e) => {
 
 let calculateSummaryWeight = (data) => data.reduce((acc, val) => acc + val.weightInGram, 0)
 
-calculateSummaryWeightBtn.addEventListener("click", (e)=>{
-    document.getElementById("insectsWeight").innerHTML = calculateSummaryWeight(current).toFixed(2)
+calculateSummaryWeightBtn.addEventListener("click", (e) => {
+    document.getElementById("insectsWeight").innerHTML = calculateSummaryWeight(current)
 })
 
 document.addEventListener("DOMContentLoaded", async () => {
