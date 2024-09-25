@@ -1,23 +1,6 @@
 let form = document.forms.createForm;
 
-let create = (data) => {
-    fetch("/api/insect", {
-        method: "POST",
-        headers: {
-            "Content-type": "application/json"
-        },
-        body: JSON.stringify(data)
-    })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data)
-        })
-        .catch(e => {
-            console.error(e)
-        })
-}
-
-function showAlert(message, type = 'warning') {
+let showAlert = (message, type = 'warning') => {
     const alertDiv = document.createElement('div');
     alertDiv.className = `alert alert-${type} alert-dismissible fade show fixed-bottom w-75`;
     alertDiv.style.bottom = '0';
@@ -39,7 +22,31 @@ function showAlert(message, type = 'warning') {
     }, 5000);
 }
 
-function validateForm({ imageLink, name, description, weightInGram, speedInMetersPerHour }) {
+let create = (data) => {
+    fetch("/api/insect", {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            if (data.status === 200) {
+                showAlert("Комаху створено успішно", "success")
+                form.reset()
+            } else {
+                showAlert(`Виникла помилка при створенні комахи: ${data.message}`, "warning")
+            }
+        })
+        .catch(e => {
+            console.error(e)
+            showAlert(`Виникла помилка при створенні комахи: ${String(e)}`, "error")
+        })
+}
+
+let validateForm = ({imageLink, name, description, weightInGram, speedInMetersPerHour}) => {
     let errors = [];
 
     if (!imageLink) {
