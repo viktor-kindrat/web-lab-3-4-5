@@ -38,6 +38,38 @@
             </div>
         </nav>
     </header>
+    <main class="container d-flex justify-content-center align-items-center mt-5">
+        <div class="container-fluid row justify-content-center align-items-center mt-5">
+            <form id="createForm" class="col-md-6 col-sm-12">
+                <h1 class="h1 text-primary">Створити нову комаху</h1>
+                <div class="mb-3">
+                    <label for="name-insect" class="form-label">Назва</label>
+                    <input name="name" type="text" class="form-control" id="name-insect" aria-describedby="name">
+                </div>
+                <div class="mb-3">
+                    <label for="img-link-enter" class="form-label">Посилання на фото комахи</label>
+                    <input name="imageLink" type="text" class="form-control" id="img-link-enter" aria-describedby="imgLink">
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Короткий опис комахи</label>
+                    <input name="description" type="text" class="form-control" id="description" aria-describedby="description">
+                </div>
+                <div class="mb-3">
+                    <label for="insect-weight" class="form-label">Вага (грам)</label>
+                    <input name="weightInGram" min="0" step="0.1" type="number" class="form-control" id="insect-weight" aria-describedby="weight">
+                </div>
+                <div class="mb-3">
+                    <label for="insect-speed" class="form-label">Швидкість (км/год)</label>
+                    <input name="speedInMetersPerHour" min="0" step="0.1" type="number" class="form-control" id="insect-speed" aria-describedby="speed">
+                </div>
+                <button type="submit" class="btn btn-primary">Створити</button>
+            </form>
+            <img style="max-height: 350px" src="../SVG/insect.svg" alt="insect"
+                 class="col-md-6 col-sm-12 object-fit-contain rounded-1 order-sm-first order-md-last"
+            >
+        </div>
+    </main>
 </div>
+<script src="../scripts/createInsect.js"></script>
 </body>
 </html>
